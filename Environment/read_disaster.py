@@ -1,27 +1,70 @@
 import pandas as pd
 import numpy as np
+import plotly.express as px
 
 
-def read_natural_disaster():
+def read_total_natural_disaster():
     '''
-    This function read number-of-natural-disaster.cvs and rearrange
-    the data into a dataframe with years as index and types of disaster
-    as colums
+    This function read number-of-natural-disaster.cvs and return a Dataframe
+    contains the total number of natual disaster
     :returns: pd.Dataframe
     '''
 
     origin_data = pd.read_csv('./data/number-of-natural-disaster-events.csv')
-    disaster_types = origin_data['Entity'].drop_duplicates().values
-    years = list(range(1900, 2020))
+    origin_data = origin_data.drop(
+        origin_data[~origin_data['Entity'].str.contains('All natural disasters'
+                                                        )].index)
+    origin_data = origin_data.drop(labels='Entity', axis=1)
+    origin_data.reset_index(drop=True, inplace=True)
+    return origin_data
 
-    temp = np.zeros([len(years), len(disaster_types)])
-    output_df = pd.DataFrame(temp,
-                             columns=disaster_types,
-                             index=years,
-                             dtype=int)
 
-    for _, row in origin_data.iterrows():
-        output_df[row['Entity']][
-            row['Year']] = row['Number of disasters (EMDAT (2020))']
+def fig_total_natural_disaster():
+    '''
+    This function used the dataframe returned by read_total_natural_disaster
+    and generateds a ploty fig object
+    :returns: plotly.graph_objs._figure.Figure
+    '''
 
-    return output_df
+    df = read_total_natural_disaster()
+    fig = px.line(df,
+                  x="Year",
+                  y="Number of disasters (EMDAT (2020))",
+                  line_shape="spline",
+                  render_mode="svg")
+    fig.update_layout(title='Total Number of Natural Disasters')
+    return fig
+
+
+def read_natural_disaster():
+    '''
+    This function read number-of-natural-disaster.cvs and return a Dataframe
+    contains the number of different types of natual disaster
+    :returns: pd.Dataframe
+    '''
+
+    origin_data = pd.read_csv('./data/number-of-natural-disaster-events.csv')
+    origin_data = origin_data.drop(origin_data[
+        origin_data['Entity'].str.contains('All natural disasters')].index)
+    origin_data.rename(columns={"Entity": "Type"}, inplace=True)
+    origin_data.reset_index(drop=True, inplace=True)
+    return origin_data
+
+
+def fig_natural_disaster():
+    '''
+    This function used the dataframe returned by read_total_natural_disaster
+    and generateds a ploty fig object
+    :returns: plotly.graph_objs._figure.Figure
+    '''
+
+    df = read_natural_disaster()
+    fig = px.line(df,
+                  x="Year",
+                  y="Number of disasters (EMDAT (2020))",
+                  color='Type',
+                  hover_name="Type",
+                  line_shape="spline",
+                  render_mode="svg")
+    fig.update_layout(title='Number of Natural Disasters')
+    return fig
