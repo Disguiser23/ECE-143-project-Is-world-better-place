@@ -12,7 +12,6 @@ def average_countries_to_continents(dataframe):
     dataframe.index = dataframe_idx
     res = dataframe.join(countries_continents)
     res = res.groupby('Continent').mean()
-
     return res
 
 
