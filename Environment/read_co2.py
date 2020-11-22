@@ -104,6 +104,9 @@ def get_country_continent_dict():
     df = pd.read_csv('./data/country-and-continent-codes-list.csv',
                      usecols=[0, 4])
     df.drop(df[df['Three_Letter_Country_Code'].isna()].index, inplace=True)
+    df.drop_duplicates(subset='Three_Letter_Country_Code',
+                       keep='first',
+                       inplace=True)
     dict_df = df.set_index('Three_Letter_Country_Code').T.to_dict('list')
     for key in dict_df.keys():
         dict_df[key] = dict_df[key][0]
@@ -156,5 +159,5 @@ def fig_sunburst_co2_country(curr_year=2018):
     fig.update_layout(
         title='The amount of CO<sub>2</sub> Emission of Each Country in {}'.
         format(curr_year),
-        coloraxis_colorbar_title= 'Annual CO<sub>2</sub>')
+        coloraxis_colorbar_title='Annual CO<sub>2</sub>')
     return fig
