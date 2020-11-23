@@ -146,11 +146,14 @@ def read_co2_country(year_start=1990, year_end=2018):
 
 def fig_sunburst_co2_country(curr_year=2018):
     '''
-
+    This function used the dataframe returned by read_co2_continent
+    and generateds a ploty fig object. It will generate a sunburst figure
+    illustrating the CO2 emmision of different countries in a certain year
+    :param curr_year: The year that concerned
+    :type cyrr_year: int
+    :returns: plotly.graph_objs._figure.Figure
     '''
     df = read_co2_country(curr_year, curr_year)
-    #assert isinstance(curr_year, int)
-    #assert df['year'].min() <= curr_year <= df['year'].max()
     fig = px.sunburst(df.query('year == @curr_year'),
                       path=['continent', 'country'],
                       values='co2',
@@ -160,4 +163,23 @@ def fig_sunburst_co2_country(curr_year=2018):
         title='The amount of CO<sub>2</sub> Emission of Each Country in {}'.
         format(curr_year),
         coloraxis_colorbar_title='Annual CO<sub>2</sub>')
+    return fig
+
+
+def fig_map_co2_country(year_start=1990, year_end=2018):
+    '''
+
+    '''
+    df = read_co2_country(year_start, year_end)
+    fig = px.choropleth(df,
+                        locations="iso_code",
+                        color="co2",
+                        hover_name="country",
+                        animation_frame="year",
+                        range_color=[0,10000])
+
+    fig.update_layout(
+        title='The amount of CO<sub>2</sub> Emission of Each Country',
+        coloraxis_colorbar_title='Annual CO<sub>2</sub>')
+
     return fig
