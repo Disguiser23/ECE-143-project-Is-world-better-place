@@ -2,7 +2,7 @@ import pandas as pd
 
 colors_blue = ['#011f4b', '#03396c', '#005b96', '#6497b1', '#b3cde0']
 colors_red_to_green = ['#ED2938', '#FF8C01', '#FFAA1C', '#FFE733', '#006B3E', '#024E1B']
-colors_pastel = ['#F8B195', '#F67280', '#C06C84', '#6C5B7B', '#355C7D', '#000000']
+colors_pastel = ['#F8B195', '#F67280', '#C06C84', '#6C5B7B', '#355C7D', '#000000', '#B5EAD7', '#619196', '#FBBA18']
 
 
 def average_countries_to_continents(dataframe):
