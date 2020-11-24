@@ -1,8 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import colors_pastel
 
-def autoregressive_integrated_moving_average(data, xlabel, ylabel, filename = 'predictions.png'):
+def autoregressive_integrated_moving_average(data, xlabel, ylabel, filename = 'predictions.png', title='Title'):
     '''this method plots predictions for a dataframe with years as columns and countries or continents as rows
     input: pandas dataframe
     xlabel, ylabel: str axis labels
@@ -10,7 +13,7 @@ def autoregressive_integrated_moving_average(data, xlabel, ylabel, filename = 'p
     saves figure
     returns None'''
     assert (isinstance(data, pd.DataFrame))
-    assert(isinstance(xlabel, str) and isinstance(ylabel, str) and isinstance(filename, str))
+    assert(isinstance(xlabel, str) and isinstance(ylabel, str) and isinstance(filename, str) and isinstance(title, str))
     preds = []
     data.index.name = 'Year'
     start_year = int(min(list(data.index)))
@@ -41,14 +44,17 @@ def autoregressive_integrated_moving_average(data, xlabel, ylabel, filename = 'p
     pred_df.index = pred_df.index + start_year + start
 
     #set up the plot
-    colors = ['#F8B195', '#F67280', '#C06C84', '#6C5B7B', '#355C7D', '#000000']
-    ax = data.plot(label='Observed', color=colors)
-    pred_df.plot(ax = ax, label='Forecast', alpha=.7, figsize=(14, 7), color=colors, legend=False)
+    ax = data.plot(label='Observed', color=colors_pastel)
+    pred_df.plot(ax = ax, label='Forecast', alpha=.7, figsize=(14, 7), color=colors_pastel, legend=False, linestyle='--')
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
+    plt.title(title)
     plt.savefig(filename, bbox_inches='tight')
+
+
+
 
 if __name__ == "__main__":
     csv = pd.read_csv('./visualizations/test/avg_gdp_continents.csv', index_col=0)
-    autoregressive_integrated_moving_average(csv.T, 'Year', 'GDP')
+    autoregressive_integrated_moving_average(csv.T, 'Year', 'GDP (Billion US$)', 'predictions.png', 'GDP Predictions per Continent')
 
