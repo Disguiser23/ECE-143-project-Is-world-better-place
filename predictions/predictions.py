@@ -1,30 +1,27 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import statsmodels.api as sm
-import numpy as np
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils import colors_pastel, colors_blue
+from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
 
-def autoregressive_integrated_moving_average(data, xlabel, ylabel, filename = 'predictions.png', title='Title'):
+def autoregressive_integrated_moving_average(data, steps=20, seasonal_order = None):
     '''this method plots predictions for a dataframe with years as columns and countries or continents as rows
     input: pandas dataframe
-    xlabel, ylabel: str axis labels
-    optional filename: str
-    saves figure
-    returns None'''
+    returns dataframe with predictions'''
     assert (isinstance(data, pd.DataFrame))
-    assert(isinstance(xlabel, str) and isinstance(ylabel, str) and isinstance(filename, str) and isinstance(title, str))
     preds = []
     data.index.name = 'Year'
     start_year = int(min(list(data.index)))
     for column_name in data:
         #prediction
-        mod = sm.tsa.statespace.SARIMAX(data[column_name], order=(1, 1, 1), seasonal_order=(1, 1, 0, 12), enforce_stationarity=False, enforce_invertibility=False)
+        if seasonal_order != None:
+            mod = sm.tsa.statespace.SARIMAX(data[column_name], order=(1, 1, 1), seasonal_order=seasonal_order, enforce_stationarity=False, enforce_invertibility=False)
+        else:
+            mod = sm.tsa.statespace.SARIMAX(data[column_name], order=(1, 1, 1), enforce_stationarity=False, enforce_invertibility=False)
         results = mod.fit()
         start = int(len(data)/4) * 3 #start predicting after 3/4 of the data
         pred = results.get_prediction(start=start, dynamic=False)
-        forecast = results.get_forecast(steps=20).predicted_mean
+        forecast = results.get_forecast(steps=steps).predicted_mean
         pred = pred.predicted_mean.append(forecast)
 
         #format predictions for plotting
@@ -43,29 +40,23 @@ def autoregressive_integrated_moving_average(data, xlabel, ylabel, filename = 'p
     data.index = data.index + start_year
     pred_df = pred_df.reset_index()
     pred_df.index = pred_df.index + start_year + start
-
-    #set up the plot
-    ax = data.plot(label='Observed', color=colors_pastel)
-    pred_df.plot(ax = ax, label='Forecast', alpha=.7, figsize=(14, 7), color=colors_pastel, legend=False, linestyle='--')
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
-    plt.title(title)
-    plt.savefig(filename, bbox_inches='tight')
-
-
-def stacked_bar_graph_prediction(data, filename="stacked_bar_graph.png", title='title', ylabel="Amount"):
-    assert(isinstance(data, pd.DataFrame))
-    assert(isinstance(filename, str) and isinstance(title, str))
-
-    ax =  data.plot(kind='bar', stacked=True, color=colors_pastel, rot=70, title=title)
-    ax.set_ylabel(ylabel)
-    plt.savefig(filename, bbox_inches='tight')
+    return data, pred_df
 
 
 if __name__ == "__main__":
-    #csv = pd.read_csv('./visualizations/test/avg_gdp_continents.csv', index_col=0)
-    #autoregressive_integrated_moving_average(csv.T, 'Year', 'GDP (Billion US$)', 'predictions.png', 'GDP Predictions per Continent')
-
+    csv = pd.read_csv('./visualizations/test/avg_gdp_continents.csv', index_col=0)
+    data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = 20, seasonal_order=(1, 1, 0, 12))
+    plot_prediction_line_graph(data, pred_df, 'Year', 'GDP (Billion US$)', 'GDP Predictions per Continent', 'predictions.png')
     csv = pd.read_csv('./data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)
+    csv = csv.reset_index()
+    csv = csv.drop(columns=['decade'])
     csv = csv.drop(columns=['All natural disasters'])
-    stacked_bar_graph_prediction(csv, filename="stacked_bar_graph_disasters.png", title="Natural Disasters from 1900-2020", ylabel="Number of Incidents")
+    number_of_predictions = 3
+    data, pred_df = autoregressive_integrated_moving_average(csv, steps = number_of_predictions)
+    data = data.set_index('Year')
+    pred_df = pred_df.set_index('Year')
+    all_data = data.append(pred_df.tail(number_of_predictions))
+    years_labels = ['1900-1910', '1910-1920', '1920-1930', '1930-1940', '1940-1950', '1950-1960', '1960-1970', '1970-1980', '1980-1990', '1990-2000', '2000-2010', '2010-2020', '2020-2030', '2030-2040', '2040-2050']
+    all_data['labels'] = years_labels
+    all_data = all_data.set_index('labels')
+    stacked_bar_graph_prediction(all_data, filename="stacked_bar_graph_disasters.png", title="Natural Disasters from 1900-2020", ylabel="Number of Incidents")
