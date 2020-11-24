@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
+import numpy as np
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import colors_pastel
@@ -52,9 +53,15 @@ def autoregressive_integrated_moving_average(data, xlabel, ylabel, filename = 'p
     plt.savefig(filename, bbox_inches='tight')
 
 
+def stacked_bar_graph_prediction(data):
+
+    data.plot(kind='bar', stacked=True)
+    #plt.show()
 
 
 if __name__ == "__main__":
-    csv = pd.read_csv('./visualizations/test/avg_gdp_continents.csv', index_col=0)
-    autoregressive_integrated_moving_average(csv.T, 'Year', 'GDP (Billion US$)', 'predictions.png', 'GDP Predictions per Continent')
+    #csv = pd.read_csv('./visualizations/test/avg_gdp_continents.csv', index_col=0)
+    #autoregressive_integrated_moving_average(csv.T, 'Year', 'GDP (Billion US$)', 'predictions.png', 'GDP Predictions per Continent')
 
+    #print(csv)
+    #stacked_bar_graph_prediction(csv)
