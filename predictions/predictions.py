@@ -44,7 +44,7 @@ def autoregressive_integrated_moving_average(data, steps=20, seasonal_order = No
 
 
 if __name__ == "__main__":
-    csv = pd.read_csv('./visualizations/test/avg_gdp_continents.csv', index_col=0)
+    csv = pd.read_csv('./data/economy/cleaned_data/avg_gdp_continents.csv', index_col=0)
     data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = 20, seasonal_order=(1, 1, 0, 12))
     plot_prediction_line_graph(data, pred_df, 'Year', 'GDP (Billion US$)', 'GDP Predictions per Continent', 'predictions.png')
     csv = pd.read_csv('./data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)
