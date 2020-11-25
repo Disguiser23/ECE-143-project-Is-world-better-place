@@ -21,3 +21,6 @@ def run():
     all_data['labels'] = years_labels
     all_data = all_data.set_index('labels')
     stacked_bar_graph_prediction(all_data, filename="stacked_bar_graph_disasters.png", title="Natural Disasters from 1900-2020", ylabel="Number of Incidents")
+
+if __name__ == "__main__":
+    run()
