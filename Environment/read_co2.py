@@ -6,8 +6,7 @@ import plotly.express as px
 def read_co2_continent(year_start=1900, year_end=2018):
     '''
     This function reads the amounts of CO2 emission of the world and each
-    continents from 1900 to 2018. The data was rearranged. with years as 
-    index and types of disaster as colums
+    continents from 1900 to 2018. The data was rearranged.
     :param year_start: The start year
     :type year_start: int
     :param year_end: The end year
@@ -58,8 +57,7 @@ def fig_co2_continent():
 
 def read_co2_trans():
     '''
-    This function reads the amounts of CO2 emission of international.
-    The data was rearranged with year as index
+    This function reads the amounts of CO2 emission of international transportagion.
     :returns: pd.Dataframe
     '''
     origin_data = pd.read_csv('./data/owid-co2-data.csv', usecols=[1, 2, 3])
