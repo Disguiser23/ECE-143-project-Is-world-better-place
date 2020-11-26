@@ -1,7 +1,9 @@
 import pandas as pd
 import numpy as np
 import plotly.express as px
-
+from predictions.predictions import autoregressive_integrated_moving_average
+from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
+from utils import colors_pastel
 
 def read_co2_continent(year_start=1900, year_end=2018):
     '''
@@ -57,7 +59,8 @@ def fig_co2_continent():
 
 def read_co2_trans():
     '''
-    This function reads the amounts of CO2 emission of international transportagion.
+    This function reads the amounts of CO2 emission of international.
+    The data was rearranged with year as index
     :returns: pd.Dataframe
     '''
     origin_data = pd.read_csv('./data/owid-co2-data.csv', usecols=[1, 2, 3])
@@ -182,10 +185,40 @@ def fig_map_co2_country(year_start=1990, year_end=2018):
                         color="co2",
                         hover_name="country",
                         animation_frame="year",
-                        range_color=[0,10000])
+                        range_color=[0, 10000])
 
     fig.update_layout(
         title='The Amount of CO<sub>2</sub> Emission of Each Country',
         coloraxis_colorbar_title='Annual CO<sub>2</sub>')
 
     return fig
+
+
+def get_predict_co2_continent(year_start = 1900, year_end = 2018):
+    '''
+    This function call autoregressive_integrated_moving_average to predict
+    the co2 emission of each continent
+    '''
+    df_origin = read_co2_continent(year_start, year_end)
+    area = [
+        'World', 'Africa', 'Asia', 'Europe', 'Oceania', 'North America',
+        'South America'
+    ]
+    years = list(range(year_start, year_end + 1))
+    temp = np.zeros([len(years), len(area)])
+    df_new = pd.DataFrame(temp, columns=area, index=years, dtype=float)
+
+    for _, row in df_origin.iterrows():
+        df_new[row['area']][row['year']] = row['co2']
+
+    _, df_pre = autoregressive_integrated_moving_average(df_new, steps=20, seasonal_order = None)
+    df_pre.drop(labels='Year', axis=1)
+
+    return df_new, df_pre
+
+def plot_predict_co2_continent(year_start = 1900, year_end = 2018, file_name = None):
+    '''
+    This function call plot_prediction_line_graph to draw the line graph
+    '''
+    df, df_pre = get_predict_co2_continent(year_start, year_end)
+    plot_prediction_line_graph(df, df_pre, 'Year', 'CO${_2}$', 'CO${_2}$ of Each Continent and the World with Prediction', file_name)
