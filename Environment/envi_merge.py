@@ -1,7 +1,11 @@
 import pandas as pd
 import numpy as np
-import os
 import plotly.express as px
+
+import os, sys
+sys.path.append('../')
+#sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from read_co2 import read_co2_continent
 from predictions.predictions import autoregressive_integrated_moving_average

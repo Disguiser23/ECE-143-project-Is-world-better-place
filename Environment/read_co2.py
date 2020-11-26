@@ -6,6 +6,7 @@ sys.path.append('../')
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from predictions.predictions import autoregressive_integrated_moving_average
 from visualizations.graphs import plot_prediction_line_graph
+
 curr_path = os.path.split(os.path.realpath(__file__))[0]
 curr_path += '/data/'
 
