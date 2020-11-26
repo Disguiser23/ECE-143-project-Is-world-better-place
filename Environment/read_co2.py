@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import os, sys
+sys.path.append('../')
 from predictions.predictions import autoregressive_integrated_moving_average
 from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
 from utils import colors_pastel
