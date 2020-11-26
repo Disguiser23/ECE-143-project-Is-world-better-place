@@ -15,11 +15,12 @@ def run():
                 'Share of seats in parliament (% held by women).csv',
                 'world_happiness.csv'
                 ]
-    for d in data_list:
+    step = [20, 20, 20, 20, 20, 20, 20, 10]
+    for d, s in zip(data_list, step):
         df = pd.read_csv(data_health + d, index_col=0)
         csv = utils.average_countries_to_continents(df)
         
-        data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = 20)
+        data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = s)
         plot_prediction_line_graph(data, pred_df, 'Year', d, 'per Continent')
         
 #    csv = pd.read_csv('./data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)
