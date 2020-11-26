@@ -8,10 +8,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 def create_world_bubble_map(data_health, data_env, data_econ, filename):
-    '''input: data is a pandas dataframe'Continent'
-    label is the label to be displayed
-    filename must include file suffix
-    countries'''
+    '''input: data is a 3 pandas dataframe with 'Continent' for the three domains we want to show
+    filename must include file suffix'''
 
     my_dpi = 96
     plt.figure(figsize=(2600 / my_dpi, 1800 / my_dpi), dpi=my_dpi)

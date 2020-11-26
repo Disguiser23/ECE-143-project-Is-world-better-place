@@ -48,8 +48,6 @@ def run():
     econ_data[1] = (econ_data[1] - econ_data[1].mean()) / econ_data[1].std()
     avg_economy_df = pd.concat([econ_data[0], econ_data[1]], axis=1).groupby(axis=1, level=0).mean()
 
-    # read environment data TODO add primary_energy_consumption
-
     environment_data = []
     for column in ['co2', 'methane']:
         environment_co2 = read_co2_continent(year_start=1990, year_end=2016, usecols=['country', 'year','co2','methane'])
