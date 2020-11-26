@@ -5,14 +5,11 @@ import os, sys
 sys.path.append('../')
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from predictions.predictions import autoregressive_integrated_moving_average
-from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
-from utils import colors_pastel
-
-
+from visualizations.graphs import plot_prediction_line_graph
 curr_path = os.path.split(os.path.realpath(__file__))[0]
 curr_path += '/data/'
 
-def read_co2_continent(year_start=1900, year_end=2018):
+def read_co2_continent(year_start=1900, year_end=2018, usecols=[1, 2, 3]):
     '''
     This function reads the amounts of CO2 emission of the world and each
     continents from 1900 to 2018. The data was rearranged.
@@ -27,7 +24,7 @@ def read_co2_continent(year_start=1900, year_end=2018):
     assert 1900 <= year_start < year_end
     assert year_end <= 2018
 
-    origin_data = pd.read_csv(curr_path + 'owid-co2-data.csv', usecols=[1, 2, 3])
+    origin_data = pd.read_csv(curr_path + 'owid-co2-data.csv', usecols=usecols)
     continents = [
         'World', 'Africa', 'Asia', 'Europe', 'Oceania', 'North America',
         'South America'
