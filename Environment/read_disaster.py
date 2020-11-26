@@ -1,7 +1,10 @@
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import os
 
+curr_path = os.path.split(os.path.realpath(__file__))[0]
+curr_path += '/data/'
 
 def read_total_natural_disaster():
     '''
@@ -10,7 +13,7 @@ def read_total_natural_disaster():
     :returns: pd.Dataframe
     '''
 
-    origin_data = pd.read_csv('./data/number-of-natural-disaster-events.csv')
+    origin_data = pd.read_csv(curr_path + 'number-of-natural-disaster-events.csv')
     origin_data = origin_data.drop(
         origin_data[~origin_data['Entity'].str.contains('All natural disasters'
                                                         )].index)
@@ -43,7 +46,7 @@ def read_natural_disaster():
     :returns: pd.Dataframe
     '''
 
-    origin_data = pd.read_csv('./data/number-of-natural-disaster-events.csv')
+    origin_data = pd.read_csv(curr_path + 'number-of-natural-disaster-events.csv')
     origin_data = origin_data.drop(origin_data[
         origin_data['Entity'].str.contains('All natural disasters')].index)
     origin_data.rename(columns={"Entity": "Type"}, inplace=True)
