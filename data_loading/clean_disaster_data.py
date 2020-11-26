@@ -4,6 +4,7 @@ if __name__ == "__main__":
 
     disaster_csv = pd.read_csv('./data/environmental/number-of-natural-disaster-events.csv')
     disaster_csv = disaster_csv.rename({'n': 'Number of disasters (EMDAT (2020))'})
+    print(disaster_csv)
     disaster_grouped_by_entity = disaster_csv.groupby('Entity')
     disaster_groups = [disaster_grouped_by_entity.get_group(x) for x in disaster_grouped_by_entity.groups]
 
@@ -14,7 +15,9 @@ if __name__ == "__main__":
     cleaned_disaster_df = pd.DataFrame()
     cleaned_disaster_df = disaster_group[['Year', 'Number of disasters (EMDAT (2020))']]
     cleaned_disaster_df = cleaned_disaster_df.set_index('Year')
+    print(cleaned_disaster_df)
     cleaned_disaster_df.columns = [disaster_group['Entity'].iloc[0]]
+    cleaned_disaster_df.to_csv('./data/environmental/cleaned_data/clean_all_natural_disasters.csv')
     new_col_gro = pd.cut(x=cleaned_disaster_df.index, bins=years, labels=years_labels)
     cleaned_disaster_df['decade'] = new_col_gro
     cleaned_disaster_df = cleaned_disaster_df.groupby('decade').sum()
@@ -24,6 +27,7 @@ if __name__ == "__main__":
         disaster_column = disaster_group[['Year', 'Number of disasters (EMDAT (2020))']]
         disaster_column = disaster_column.set_index('Year')
         disaster_column.columns = [disaster_group['Entity'].iloc[0]]
+        print(disaster_group)
         disaster_column_grouped = pd.cut(x=disaster_column.index, bins=years, labels=years_labels)
         disaster_column['decade'] = disaster_column_grouped
         disaster_column = disaster_column.groupby('decade').sum()

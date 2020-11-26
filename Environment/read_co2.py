@@ -26,7 +26,7 @@ def read_co2_continent(year_start=1900, year_end=2018):
     assert 1900 <= year_start < year_end
     assert year_end <= 2018
 
-    origin_data = pd.read_csv(curr_path + 'owid-co2-data.csv', usecols=[1, 2, 3])
+    origin_data = pd.read_csv('./Environment/data/owid-co2-data.csv', usecols=[1, 2, 3])
     continents = [
         'World', 'Africa', 'Asia', 'Europe', 'Oceania', 'North America',
         'South America'
