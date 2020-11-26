@@ -8,6 +8,7 @@ sys.path.append('../')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from read_co2 import read_co2_continent
+from read_disaster import read_natural_disaster
 from predictions.predictions import autoregressive_integrated_moving_average
 from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
 from utils import colors_pastel
@@ -64,3 +65,41 @@ def plot_predict_co2_continent_person(year_start=1950,
         df, df_pre, 'Year', 'Annual CO${_2}$ Emission, Kg',
         'CO${_2}$ of Each Continent and the World Per Person with Prediction',
         file_name)
+
+def get_world_co2_disaster(year_start=1900, year_end=2018):
+    '''
+
+    '''
+    df_emi = read_co2_continent(year_start, year_end)
+    df_emi = df_emi.drop(df_emi[
+        ~df_emi['area'].str.contains('World')].index)
+    df_emi.drop(labels = 'area', axis = 1, inplace = True)
+    df_emi = df_emi.drop(df_emi[df_emi['year'] < year_start].index)
+    df_emi = df_emi.drop(df_emi[df_emi['year'] > year_end].index)
+    df_emi.set_index('year', inplace = True)
+    df_emi['disaster'] = 0
+
+    df_disaster = read_natural_disaster()
+    df_disaster = df_disaster.drop(df_disaster[df_disaster['Year'] < year_start].index)
+    df_disaster = df_disaster.drop(df_disaster[df_disaster['Year'] > year_end].index)
+    concern_list = ['Drought', 'Extreme temperature', 'Extreme weather', 'Flood', 'Landslide', 'Wildfire']
+    for _, row in df_disaster.iterrows():
+        if row['Type'] in concern_list:
+            df_emi['disaster'][row['Year']] += row['Number of disasters (EMDAT (2020))']
+
+    return df_emi
+
+def fig_world_co2_disaster(year_start=1900, year_end=2018):
+    '''
+
+    '''
+    df = get_world_co2_disaster(year_start, year_end)
+    df.reset_index(inplace = True)
+    fig = px.scatter(df, x="co2", y="disaster", hover_name="year")
+
+    fig.update_layout(
+        title= 'The amount of CO<sub>2</sub> Emission VS Number of Natural Disasters<br>Related to Global Warming',
+        xaxis_title= 'Annual CO<sub>2</sub> Emission, Million Tonnes per Year',
+        yaxis_title= 'Number of Natural Disasters')
+
+    return fig

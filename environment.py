@@ -69,6 +69,13 @@ def plot_predict_co2_continent_person(year_start=1950,
         'CO${_2}$ of Each Continent and the World Per Person with Prediction',
         file_name)
 
+def plot_world_co2_disaster(year_start=1900, year_end=2018):
+    '''
+
+    '''
+    fig = Environment.envi_merge.fig_world_co2_disaster(year_start, year_end)
+    fig.show()
+
 if __name__ == "__main__":
     plot_natural_disaster_prediction(
         file_name='filename="stacked_bar_graph_disasters.png')
