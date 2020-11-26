@@ -4,7 +4,7 @@ from predictions.predictions import autoregressive_integrated_moving_average
 from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
 
 
-def run():
+def natural_disaster_prediction(file_name = None):
     #     csv = pd.read_csv('./data/economy/cleaned_data/avg_gdp_continents.csv', index_col=0)
     #     data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = 20, seasonal_order=(1, 1, 0, 12))
     #     plot_prediction_line_graph(data, pred_df, 'Year', 'GDP (Billion US$)', 'GDP Predictions per Continent', 'predictions.png')
@@ -29,7 +29,10 @@ def run():
     all_data['labels'] = years_labels
     all_data = all_data.set_index('labels')
     stacked_bar_graph_prediction(all_data,
-                                 filename=None,
+                                 filename=file_name,
                                  title="Natural Disasters from 1900-2020",
-                                 ylabel="Number of Incidents"
-                                 )  #filename="stacked_bar_graph_disasters.png"
+                                 ylabel="Number of Incidents",
+                                 )
+
+if __name__ == "__main__":
+    natural_disaster_prediction(file_name = 'filename="stacked_bar_graph_disasters.png')
