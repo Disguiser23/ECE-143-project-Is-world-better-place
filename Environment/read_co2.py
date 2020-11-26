@@ -3,6 +3,7 @@ import numpy as np
 import plotly.express as px
 import os, sys
 sys.path.append('../')
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from predictions.predictions import autoregressive_integrated_moving_average
 from visualizations.graphs import plot_prediction_line_graph
 curr_path = os.path.split(os.path.realpath(__file__))[0]
@@ -224,4 +225,4 @@ def plot_predict_co2_continent(year_start = 1900, year_end = 2018, file_name = N
     This function call plot_prediction_line_graph to draw the line graph
     '''
     df, df_pre = get_predict_co2_continent(year_start, year_end)
-    plot_prediction_line_graph(df, df_pre, 'Year', 'CO${_2}$', 'CO${_2}$ of Each Continent and the World with Prediction', file_name)
+    plot_prediction_line_graph(df, df_pre, 'Year', 'Annual CO${_2}$ Emission, Million Tonnes', 'CO${_2}$ Emission of Each Continent and the World with Prediction', file_name)
