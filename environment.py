@@ -29,8 +29,8 @@ def plot_natural_disaster_prediction(file_name=None):
         '1950-1960', '1960-1970', '1970-1980', '1980-1990', '1990-2000',
         '2000-2010', '2010-2020', '2020-2030', '2030-2040', '2040-2050'
     ]
-    all_data['labels'] = years_labels
-    all_data = all_data.set_index('labels')
+    all_data['Decade'] = years_labels
+    all_data = all_data.set_index('Decade')
     stacked_bar_graph_prediction(
         all_data,
         filename=file_name,
@@ -81,8 +81,7 @@ def plot_world_co2_disaster(year_start=1900, year_end=2018):
 
 
 if __name__ == "__main__":
-    plot_natural_disaster_prediction(
-        file_name='stacked_bar_graph_disasters.png')
+    plot_natural_disaster_prediction(file_name='presentation_images/filename="stacked_bar_graph_disasters.png')
 
     plot_predict_co2_continent(year_start=1950,
                                year_end=2018,
@@ -91,3 +90,4 @@ if __name__ == "__main__":
     plot_predict_co2_continent_person(year_start=1950,
                                       year_end=2018,
                                       file_name='co2-personal-prediction.png')
+
