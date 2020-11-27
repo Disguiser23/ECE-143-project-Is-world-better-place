@@ -81,13 +81,13 @@ def plot_world_co2_disaster(year_start=1900, year_end=2018):
 
 
 if __name__ == "__main__":
-    # plot_natural_disaster_prediction(
-    #     file_name='stacked_bar_graph_disasters.png')
+    plot_natural_disaster_prediction(
+        file_name='stacked_bar_graph_disasters.png')
 
     plot_predict_co2_continent(year_start=1950,
                                year_end=2018,
                                file_name='co2-continent-prediction.png')
 
-    # plot_predict_co2_continent_person(year_start=1950,
-    #                                   year_end=2018,
-    #                                   file_name='co2-personal-prediction.png')
+    plot_predict_co2_continent_person(year_start=1950,
+                                      year_end=2018,
+                                      file_name='co2-personal-prediction.png')
