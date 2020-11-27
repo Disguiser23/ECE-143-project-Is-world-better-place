@@ -5,14 +5,13 @@ from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_
 
 
 def run():
-<<<<<<< Updated upstream
-    csv = pd.read_csv('./data/economy/cleaned_data/avg_gdp_continents.csv',
-                      index_col=0)
-    data, pred_df = autoregressive_integrated_moving_average(
-        csv.T, steps=20, seasonal_order=(1, 1, 0, 12))
-    plot_prediction_line_graph(
-        data, pred_df, 'Year', 'GDP (Billion US$)',
-        'GDP Predictions per Continent')  #, 'predictions.png'
+    #csv = pd.read_csv('./data/economy/cleaned_data/avg_gdp_continents.csv',
+    #                  index_col=0)
+    #data, pred_df = autoregressive_integrated_moving_average(
+    #    csv.T, steps=20, seasonal_order=(1, 1, 0, 12))
+    #plot_prediction_line_graph(
+    #    data, pred_df, 'Year', 'GDP (Billion US$)',
+    #    'GDP Predictions per Continent')  #, 'predictions.png'
 
     # csv = pd.read_csv('./data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)
     # csv = csv.reset_index()
@@ -29,7 +28,6 @@ def run():
     # stacked_bar_graph_prediction(all_data, filename="stacked_bar_graph_disasters.png", title="Natural Disasters from 1900-2020", ylabel="Number of Incidents")
 
 
-=======
     data_economy = './data/economy/cleaned_data/cleaned_'
     data_list = ['GDP.csv',
                 'annual_work_hrs.csv',
@@ -45,7 +43,6 @@ def run():
         data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = s)
         plot_prediction_line_graph(data, pred_df, 'Year', d, 'per Continent')
         
->>>>>>> Stashed changes
 if __name__ == "__main__":
     run()
 
