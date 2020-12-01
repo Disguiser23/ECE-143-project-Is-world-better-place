@@ -19,7 +19,7 @@ def plot_prediction_line_graph(data, pred_df, xlabel, ylabel, title, filename=No
     ax.set_ylabel(ylabel)
     plt.title(title)
     if filename:
-        plt.savefig(filename, bbox_inches='tight')
+        plt.savefig(filename, bbox_inches='tight', transparent=True)
     plt.show()
 
 
@@ -30,5 +30,5 @@ def stacked_bar_graph_prediction(data, filename=None, title='title', ylabel="Amo
     ax =  data.plot(kind='bar', stacked=True, color=colors_pastel, rot=70, title=title)
     ax.set_ylabel(ylabel)
     if filename:
-        plt.savefig(filename, bbox_inches='tight')
+        plt.savefig(filename, bbox_inches='tight', transparent=True)
     plt.show()

@@ -22,7 +22,8 @@ def run():
         df.to_csv( './data/health/cleaned_data/continent/' + d[:-4] + '_continent.csv')
         
         data, pred_df = autoregressive_integrated_moving_average(df.T, steps = s)
-        plot_prediction_line_graph(data, pred_df, 'Year', d[:-4], 'per Continent')
+        fname = d + '.png'
+        plot_prediction_line_graph(data, pred_df, 'Year', d[:-4], 'Data per Continent', fname)
     
 
 #    csv = pd.read_csv('./data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)
