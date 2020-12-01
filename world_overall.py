@@ -8,7 +8,7 @@ from visualizations.world_map import create_world_bubble_map
 def run():
     data_list_health = ['./data/health/cleaned_data/cleaned_Life expectancy at birth.csv',
                     './data/health/cleaned_data/cleaned_Mortality rate, infant (per 1,000 live births).csv']
-    data_list_economy = ['./data/economy/cleaned_data/cleanedGDP.csv',
+    data_list_economy = ['./data/economy/cleaned_data/cleaned_GDP.csv',
                      './data/economy/cleaned_data/cleaned_Unemployment, total (% of labour force).csv']
 
     min_year = 1991
