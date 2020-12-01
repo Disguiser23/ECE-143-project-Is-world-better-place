@@ -42,14 +42,14 @@ def create_world_bubble_map(data_health, data_env, data_econ, filename):
     data_env = data_env.join(coords_env)
     data_econ = data_econ.join(coords_econ)
 
-
     for column in data_health.columns:
-        m.scatter(data_health['lon'], data_health['lat'], s=17000,  c=data_health[column], cmap='RdYlGn', zorder=1000, alpha=0.7)# big value -> green, small value -> red
-        m.scatter(data_env['lon'], data_env['lat'], s=17000, c=data_env[column], cmap='RdYlGn', zorder=1000, alpha=0.7)
-        m.scatter(data_econ['lon'], data_econ['lat'],s=17000,  c=data_econ[column], cmap='RdYlGn', zorder=1000, alpha=0.7)
+        m.scatter(data_health['lon'], data_health['lat'], vmax = 0.025, vmin= -0.1, s=17000,  c=data_health[column], cmap='RdYlGn', zorder=1000, alpha=0.9)# big value -> green, small value -> red
+        m.scatter(data_env['lon'], data_env['lat'], vmax = 0.025, vmin= -0.1, s=17000, c=data_env[column], cmap='RdYlGn', zorder=1000, alpha=0.9)
+        m.scatter(data_econ['lon'], data_econ['lat'],vmax = 0.025, vmin= -0.1, s=17000,  c=data_econ[column], cmap='RdYlGn', zorder=1000, alpha=0.9)
         for elem in coords:
             plt.text(elem[0]-20, elem[1]-25, elem[2],
             ha='left', va='bottom', size=30, color='#555555')
+
 
         '''for elem in coords:
             plt.text(elem[0]-7, elem[1], 'Health',
@@ -63,7 +63,6 @@ def create_world_bubble_map(data_health, data_env, data_econ, filename):
 
         plt.text(-180, -68, column,
             ha='left', va='bottom', size=30, color='#555555', backgroundcolor='#E7E7E7')
-
         plt.savefig(column + '_' + filename, bbox_inches='tight', transparent=True)
 
 if __name__ =="__main__":

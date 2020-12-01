@@ -8,10 +8,6 @@ from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_
 
 
 def plot_natural_disaster_prediction(file_name=None):
-    #     csv = pd.read_csv('./data/economy/cleaned_data/avg_gdp_continents.csv', index_col=0)
-    #     data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = 20, seasonal_order=(1, 1, 0, 12))
-    #     plot_prediction_line_graph(data, pred_df, 'Year', 'GDP (Billion US$)', 'GDP Predictions per Continent', 'predictions.png')
-
     csv = pd.read_csv(
         './data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv',
         index_col=0)
@@ -34,7 +30,7 @@ def plot_natural_disaster_prediction(file_name=None):
     stacked_bar_graph_prediction(
         all_data,
         filename=file_name,
-        title="Natural Disasters",
+        title="Number of Natural Disasters (1900-2020) and Predictions (2030-2050)",
         ylabel="Number of Incidents",
     )
 
@@ -85,9 +81,9 @@ if __name__ == "__main__":
 
     plot_predict_co2_continent(year_start=1950,
                                year_end=2018,
-                               file_name='co2-continent-prediction.png')
+                               file_name='presentation_images/co2-continent-prediction.png')
 
     plot_predict_co2_continent_person(year_start=1950,
                                       year_end=2018,
-                                      file_name='co2-personal-prediction.png')
+                                      file_name='presentation_images/co2-personal-prediction.png')
 
