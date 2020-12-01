@@ -4,6 +4,7 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Environment.read_co2 import read_co2_continent
 from visualizations.world_map import create_world_bubble_map
+from predictions.predictions import autoregressive_integrated_moving_average
 
 def run():
     data_list_health = ['./data/health/cleaned_data/cleaned_Life expectancy at birth.csv',
@@ -24,8 +25,8 @@ def run():
                 columns_to_drop.append(column)
         avg_health_df = avg_health_df_new.drop(columns=columns_to_drop)
         health_data.append(avg_health_df)
-    health_data[0] = 1- (health_data[0] - health_data[0].mean()) / health_data[0].std() # inversely normalize when the higher the better
-    health_data[1] = ( health_data[1] -  health_data[1].mean()) /  health_data[1].std()
+    health_data[0] =  (health_data[0] - health_data[0].mean()) / health_data[0].std()
+    health_data[1] = 1-( health_data[1] -  health_data[1].mean()) /  health_data[1].std()# inversely normalize when the higher the better
 
     avg_health_df = pd.concat([health_data[0], health_data[1]], axis=1).groupby(axis=1, level=0).mean()
 
@@ -43,9 +44,9 @@ def run():
         avg_economy_df = avg_economy_df_new.drop(columns=columns_to_drop)
         econ_data.append(avg_economy_df)
 
-    econ_data[0] = 1 - (econ_data[0] - econ_data[0].mean()) / econ_data[
-        0].std()  # inversely normalize when the higher the better
-    econ_data[1] = (econ_data[1] - econ_data[1].mean()) / econ_data[1].std()
+    econ_data[0] = (econ_data[0] - econ_data[0].mean()) / econ_data[
+        0].std()
+    econ_data[1] = 1-(econ_data[1] - econ_data[1].mean()) / econ_data[1].std()
     avg_economy_df = pd.concat([econ_data[0], econ_data[1]], axis=1).groupby(axis=1, level=0).mean()
 
     environment_data = []
@@ -66,7 +67,7 @@ def run():
             cleaned_co2_df = cleaned_co2_df.join(co2_column)
         cleaned_co2_df = cleaned_co2_df.T[:-1]
         cleaned_co2_df.columns = cleaned_co2_df.columns.map(str)
-        cleaned_co2_df = (cleaned_co2_df - cleaned_co2_df.mean()) / cleaned_co2_df.std()
+        cleaned_co2_df = 1-(cleaned_co2_df - cleaned_co2_df.mean()) / cleaned_co2_df.std()
         environment_data.append(cleaned_co2_df)
 
     avg_env_df = pd.concat([environment_data[0], environment_data[1]], axis=1).groupby(axis=1, level=0).mean()
@@ -74,9 +75,22 @@ def run():
     avg_env_df = avg_env_df[common_cols]
     avg_health_df = avg_health_df[common_cols]
     avg_economy_df = avg_economy_df[common_cols]
+    a, b = autoregressive_integrated_moving_average(avg_env_df.T)
+    a = a.set_index('Year')
+    b = b.set_index('Year')
+    avg_env_df = pd.concat([a.T,b[8:].T], axis=1)
+    a, b = autoregressive_integrated_moving_average(avg_health_df.T)
+    a = a.set_index('Year')
+    b = b.set_index('Year')
+    avg_health_df = pd.concat([a.T, b[8:].T], axis=1)
+    a, b = autoregressive_integrated_moving_average(avg_economy_df.T)
+    a = a.set_index('Year')
+    b = b.set_index('Year')
+    avg_economy_df = pd.concat([a.T, b[8:].T], axis=1)
+    #print(avg_env_df)
+    #print(avg_health_df)
+    #print(avg_economy_df.index, avg_economy_df.columns)
     create_world_bubble_map(avg_health_df, avg_env_df, avg_economy_df, 'world_overall.png')
-
-
 
 
 if __name__ == "__main__":

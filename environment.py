@@ -34,7 +34,7 @@ def plot_natural_disaster_prediction(file_name=None):
     stacked_bar_graph_prediction(
         all_data,
         filename=file_name,
-        title="Natural Disasters from 1900-2020",
+        title="Natural Disasters",
         ylabel="Number of Incidents",
     )
 
