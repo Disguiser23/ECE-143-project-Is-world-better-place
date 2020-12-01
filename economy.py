@@ -36,12 +36,14 @@ def run():
                 'Unemployment, total (% of labour force).csv'
                 ]
     step = [15, 15, 15, 15, 15]
-    for d, s in zip(data_list, step):
+    y_label_name = ['United States dollars', 'hrs', '% ages 15 and older', '% ages 15 and older', '% of labour force']
+    title_name = ['GDP', 'Annual Work Hours', 'Employment to Population Ratio', 'Labour Force Participation Rate', 'Unemployment']
+    for d, s, y, t in zip(data_list, step, y_label_name, title_name):
         df = pd.read_csv(data_economy + d, index_col=0)
         csv = utils.average_countries_to_continents(df)
         
         data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = s)
-        plot_prediction_line_graph(data, pred_df, 'Year', d, 'per Continent')
+        plot_prediction_line_graph(data, pred_df, 'Year', y, t + ' per continent', d[:-4]+'.png')
         
 if __name__ == "__main__":
     run()

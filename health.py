@@ -16,14 +16,17 @@ def run():
                 'world_happiness.csv'
                 ]
     step = [10, 10, 10, 10, 10, 10, 10, 2]
-    for d, s in zip(data_list, step):
+    y_label_name = ['births per 1,000 women ages 15-19', 'year', 'deaths per 100,000 live births', 'per 1,000 live births', 'per 1,000 live births', '%', '% held by women', 'Happiness index']
+    title_name = ['Adolescent Birth Rate', 'Life Expectancy at Birth', 'Maternal Mortality Ratio', 'Mortality Rate, infant', 'Mortality Rate, under-five', 'Proportion of Births Sttended by Skilled Health Personnel', 'Share of Seats in Parliament', 'World Happiness']
+    
+    for d, s, y, t in zip(data_list, step, y_label_name, title_name):
         df = pd.read_csv(data_health + d, index_col=0)
         df = utils.average_countries_to_continents(df)
         df.to_csv( './data/health/cleaned_data/continent/' + d[:-4] + '_continent.csv')
         
         data, pred_df = autoregressive_integrated_moving_average(df.T, steps = s)
         fname = d + '.png'
-        plot_prediction_line_graph(data, pred_df, 'Year', d[:-4], 'Data per Continent', fname)
+        plot_prediction_line_graph(data, pred_df, 'Year', y, t+' per Continent', fname)
     
 
 #    csv = pd.read_csv('./data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)
