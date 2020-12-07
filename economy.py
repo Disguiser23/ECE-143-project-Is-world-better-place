@@ -10,7 +10,7 @@ def run():
     data, pred_df = autoregressive_integrated_moving_average(
         csv.T, steps=20, seasonal_order=(1, 1, 0, 12))
     plot_prediction_line_graph(
-        data, pred_df, 'Year', 'GDP (Billion US$)',
+        data, pred_df, 'Year', 'GDP (US$)',
         'Annual GDP and Predictions per Continent', 'presentation_images/predictions.png')  #, 'predictions.png'
 
     # csv = pd.read_csv('./data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)

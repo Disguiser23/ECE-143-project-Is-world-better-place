@@ -19,6 +19,7 @@ def create_world_bubble_map(data_health, data_env, data_econ, filename):
     m.fillcontinents(color='#ffffff')
     m.drawcoastlines(linewidth=0.1, color="#f6f6f6")
 
+    #define where to plot the bubbles
     coords = [[-65.59, -30, 'South America'],
                            [-3.69, 43.53, 'Europe'],
                            [14, -20.77, 'Africa'],
@@ -43,23 +44,22 @@ def create_world_bubble_map(data_health, data_env, data_econ, filename):
     data_econ = data_econ.join(coords_econ)
 
     for column in data_health.columns:
-        m.scatter(data_health['lon'], data_health['lat'], vmax = 0.025, vmin= -0.1, s=17000,  c=data_health[column], cmap='RdYlGn', zorder=1000, alpha=0.9)# big value -> green, small value -> red
+        # big values display the bubble in green, small value in red
+        m.scatter(data_health['lon'], data_health['lat'], vmax = 0.025, vmin= -0.1, s=17000,  c=data_health[column], cmap='RdYlGn', zorder=1000, alpha=0.9)
         m.scatter(data_env['lon'], data_env['lat'], vmax = 0.025, vmin= -0.1, s=17000, c=data_env[column], cmap='RdYlGn', zorder=1000, alpha=0.9)
         m.scatter(data_econ['lon'], data_econ['lat'],vmax = 0.025, vmin= -0.1, s=17000,  c=data_econ[column], cmap='RdYlGn', zorder=1000, alpha=0.9)
         for elem in coords:
             plt.text(elem[0]-20, elem[1]-25, elem[2],
             ha='left', va='bottom', size=30, color='#555555')
-
-
-        '''for elem in coords:
+        for elem in coords:
             plt.text(elem[0]-7, elem[1], 'Health',
-                 ha='left', va='bottom', size=14, color='#555555', zorder=1001)
+                 ha='left', va='bottom', size=14, color='#FFFFFF', zorder=1001)
         for elem in c_econ:
             plt.text(elem[0]-8, elem[1], 'Economy',
-                 ha='left', va='bottom', size=14, color='#555555', zorder=1001)
+                 ha='left', va='bottom', size=14, color='#FFFFFF', zorder=1001)
         for elem in c_env:
             plt.text(elem[0]-10, elem[1], 'Environment',
-                 ha='left', va='bottom', size=14, color='#555555', zorder=1001)'''
+                 ha='left', va='bottom', size=14, color='#FFFFFF', zorder=1001)
 
         plt.text(-180, -68, column,
             ha='left', va='bottom', size=30, color='#555555', backgroundcolor='#E7E7E7')
