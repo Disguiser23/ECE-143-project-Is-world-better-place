@@ -12,6 +12,7 @@ def adaptDataForPCT(raw_data):
     :param raw_data: pandas.dataframe
     returns: pandas.dataframe
     columns should be years, rows continents'''
+    assert(isinstance(raw_data, list))
 
     pct_data = []
     for data in raw_data:
@@ -31,6 +32,9 @@ def filterDataFrameByYears(data_list, min_year, max_year):
     :param max_year: int
     :returns list of pandas.dataframe
     '''
+    assert(isinstance(data_list, list))
+    assert(isinstance(min_year, int))
+    assert(isinstance(max_year, int))
 
     filtered_data = []
     for data in data_list:
@@ -51,6 +55,10 @@ def prepareHealthDataFramesForPrediction(data_list_health, min_year, max_year):
     :param min_year: int
     :param max_year: int
     :returns pandas.dataframe'''
+    assert (isinstance(data_list_health, list))
+    assert (isinstance(min_year, int))
+    assert (isinstance(max_year, int))
+
     health_data = filterDataFrameByYears(data_list_health, min_year, max_year)
 
     health_data = adaptDataForPCT(health_data)
@@ -64,6 +72,9 @@ def prepareEconomyDataForPrediction(data_list_economy, min_year, max_year):
     :param min_year: int
     :param max_year: int
     :returns pandas.dataframe'''
+    assert (isinstance(data_list_economy, list))
+    assert (isinstance(min_year, int))
+    assert (isinstance(max_year, int))
     econ_data = filterDataFrameByYears(data_list_economy, min_year, max_year)
     econ_data = adaptDataForPCT(econ_data)
     econ_data[1] = - econ_data[1]  # inverse when the higher the better
@@ -76,6 +87,8 @@ def loadAndPrepareEnvironmentDataForPrediction(min_year, max_year):
     :param max_year: int
     :return: pandas.dataframe
     '''
+    assert (isinstance(min_year, int))
+    assert (isinstance(max_year, int))
     environment_data = []
     # we are interested in the co2 and methane emissions
     for column in ['co2', 'methane']:
@@ -139,7 +152,7 @@ def run():
         avg_env_df = pd.concat([data.T,predictions[8:].T], axis=1) # remove the overlap
         categories_dfs[i] = avg_env_df
 
-    create_world_bubble_map(categories_dfs[0], categories_dfs[1], categories_dfs[2], 'world_overall.png')
+    create_world_bubble_map(categories_dfs[0],categories_dfs[1], categories_dfs[2], 'world_overall.png')
 
 
 if __name__ == "__main__":
