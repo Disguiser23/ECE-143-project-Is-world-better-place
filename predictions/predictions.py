@@ -7,15 +7,18 @@ from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_
 
 def autoregressive_integrated_moving_average(data, steps=20, seasonal_order = None):
     '''this method plots predictions for a dataframe with years as columns and countries or continents as rows
-    input: pandas dataframe
+    :param data: pandas.dataframe
+    :param steps: int with default 20
+    :param seasonal_order: Tuple with 4 elements
     returns dataframe with predictions'''
+    assert(isinstance(steps, int))
+    assert(isinstance(seasonal_order, tuple))
     assert (isinstance(data, pd.DataFrame))
     warnings.filterwarnings("ignore")
     preds = []
     data.index.name = 'Year'
     start_year = int(min(list(data.index)))
     for column_name in data:
-        #prediction
         if seasonal_order != None:
             mod = sm.tsa.statespace.SARIMAX(data[column_name], order=(1, 1, 1), seasonal_order=seasonal_order, enforce_stationarity=False, enforce_invertibility=False)
         else:
