@@ -146,13 +146,13 @@ def run():
     # predict for all categories
     for i, df in enumerate(categories_dfs):
         df = df.drop(columns='1991')
-        data, predictions = autoregressive_integrated_moving_average(df.T, seasonal_order = (1, 1, 0, 1))
+        data, predictions = autoregressive_integrated_moving_average(df.T, 14, seasonal_order = (1, 1, 0, 1))
         data = data.set_index('Year')
         predictions = predictions.set_index('Year')
         avg_env_df = pd.concat([data.T,predictions[8:].T], axis=1) # remove the overlap
         categories_dfs[i] = avg_env_df
 
-    create_world_bubble_map(categories_dfs[0],categories_dfs[1], categories_dfs[2], 'world_overall.png')
+    create_world_bubble_map(categories_dfs[0],categories_dfs[1], categories_dfs[2], 'presentation_images/')
 
 
 if __name__ == "__main__":
