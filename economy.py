@@ -1,7 +1,7 @@
 import utils
 import pandas as pd
 from predictions.predictions import autoregressive_integrated_moving_average
-from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
+from visualizations.graphs import plot_prediction_line_graph
 
 
 def run():
