@@ -4,7 +4,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append('../')
 from utils import colors_pastel
 import pandas as pd
-
 import matplotlib.pylab as pylab
 
 
