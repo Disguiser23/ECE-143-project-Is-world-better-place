@@ -66,4 +66,4 @@ if __name__ == "__main__":
     years_labels = ['1900-1910', '1910-1920', '1920-1930', '1930-1940', '1940-1950', '1950-1960', '1960-1970', '1970-1980', '1980-1990', '1990-2000', '2000-2010', '2010-2020', '2020-2030', '2030-2040', '2040-2050']
     all_data['labels'] = years_labels
     all_data = all_data.set_index('labels')
-    stacked_bar_graph_prediction(all_data, filename="stacked_bar_graph_disasters.png", title="Natural Disasters from 1900-2020", ylabel="Number of Incidents")
+    stacked_bar_graph_prediction(all_data, filename="../presentation_images/stacked_bar_graph_disasters.png", title="Natural Disasters from 1900-2020", ylabel="Number of Incidents")
