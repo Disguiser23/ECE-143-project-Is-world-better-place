@@ -2,7 +2,11 @@
 
 ### Used Libraries
 Pandas (Version 1.1.4)
-Matplotlib (Version)
-statsmodels.api (Version)
-mpl_toolkits.basemap (Version )
+
+Matplotlib (Version 3.1.1),
+mpl_toolkits.basemap (requires conda install basemap)
+
+statsmodels.api (Version 0.10.1)
+
+
 
