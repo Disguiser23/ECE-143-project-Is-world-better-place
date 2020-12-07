@@ -13,7 +13,7 @@ statsmodels.api (Version 0.10.1)
 ## How to run the code
 
 ## Final Presentation
-Can be found in ... 
+Can be found in at ./final_presentation/ECE_143_Is_world_better_place.pdf
 
 
 
