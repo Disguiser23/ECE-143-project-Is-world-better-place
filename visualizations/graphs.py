@@ -10,10 +10,10 @@ import matplotlib.pylab as pylab
 
 
 def plot_prediction_line_graph(data, pred_df, xlabel, ylabel, title, filename=None):
-    '''xlabel, ylabel: str axis labels
-    optional filename: str
-    saves figure
-    returns None'''
+    '''saves figure as line graph in presentation_images folder
+    :param xlabel, ylabel: str axis labels
+    :param filename: str or optional
+    '''
     assert(isinstance(xlabel, str) and isinstance(ylabel, str) and isinstance(title, str))
     
     params = {'legend.fontsize': 'x-large',
@@ -36,8 +36,15 @@ def plot_prediction_line_graph(data, pred_df, xlabel, ylabel, title, filename=No
 
 
 def stacked_bar_graph_prediction(data, filename=None, title='title', ylabel="Amount"):
+    '''plots a stacked bar graph for a dataframe including predictions and saves to presentation_images folder
+    :param data: pandas.dataframe
+    :param filename: str
+    :param title: str or none
+    :param ylabel: str'''
     assert(isinstance(data, pd.DataFrame))
-    assert isinstance(title, str)
+    assert(isinstance(title, str))
+    assert (isinstance(filename, str) or isinstance(filename, None))
+    assert (isinstance(ylabel, str))
     params = {'legend.fontsize': 'x-large',
                   'figure.figsize': (15, 5),
                  'axes.labelsize': 'x-large',
