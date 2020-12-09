@@ -1,10 +1,9 @@
-import utils
 import pandas as pd
 import plotly.express as px
 import Environment  #.read_co2
 #import Environment.envi_merge
-from predictions.predictions import autoregressive_integrated_moving_average
-from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
+from src.predictions.predictions import autoregressive_integrated_moving_average
+from src.visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction, average_countries_to_continents
 
 
 def plot_natural_disaster_prediction(file_name=None):

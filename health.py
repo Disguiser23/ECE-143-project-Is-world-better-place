@@ -1,7 +1,6 @@
-import utils
 import pandas as pd
-from predictions.predictions import autoregressive_integrated_moving_average
-from visualizations.graphs import plot_prediction_line_graph
+from src.predictions.predictions import autoregressive_integrated_moving_average
+from src.visualizations.graphs import plot_prediction_line_graph, average_countries_to_continents
 
 
 def run():
@@ -21,11 +20,11 @@ def run():
     
     for d, s, y, t in zip(data_list, step, y_label_name, title_name):
         df = pd.read_csv(data_health + d, index_col=0)
-        df = utils.average_countries_to_continents(df)
+        df = average_countries_to_continents(df)
         df.to_csv( './data/health/cleaned_data/continent/' + d[:-4] + '_continent.csv')
         
         data, pred_df = autoregressive_integrated_moving_average(df.T, steps = s)
-        fname = d + '.png'
+        fname = d[:-4] + '.png'
         plot_prediction_line_graph(data, pred_df, 'Year', y, t+' per Continent', fname)
 
 if __name__ == "__main__":

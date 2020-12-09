@@ -3,7 +3,7 @@ import statsmodels.api as sm
 import os, sys
 import warnings
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
+from src.visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction, average_countries_to_continents
 
 def autoregressive_integrated_moving_average(data, steps=20, seasonal_order = None):
     '''this method plots predictions for a dataframe with years as columns and countries or continents as rows
@@ -12,7 +12,8 @@ def autoregressive_integrated_moving_average(data, steps=20, seasonal_order = No
     :param seasonal_order: Tuple with 4 elements
     returns dataframe with predictions'''
     assert(isinstance(steps, int))
-    assert(isinstance(seasonal_order, tuple))
+    if seasonal_order:
+        assert(isinstance(seasonal_order, tuple))
     assert (isinstance(data, pd.DataFrame))
     warnings.filterwarnings("ignore")
     preds = []
