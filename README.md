@@ -9,6 +9,32 @@ mpl_toolkits.basemap (requires conda install basemap)
 statsmodels.api (Version 0.10.1)
 
 ## File Structure
+.
+├── README.md
+├── data
+│   ├── countries_continent         
+│   ├── economy                  
+│   ├── environmental         
+│   └── health                
+├── src                    
+│   ├── data_loading  
+│       ├── clean_health_data.py          
+│       ├── clean_economy_data.py       
+│       └── clean_disaster_data.py
+│   ├── predictions      
+│       ├── predictions.py       
+│       └── world_overall.py
+│   └── visualizations     
+│       ├── graphs.py       
+│       └── world_map.py
+├── main.ipynb
+├── health.py
+├── economy.py
+├── environment.py
+├── output_images
+├── .gitignore
+└── ECE_143_Is_world_better_place.pdf
+
 
 ## How to run the code
 
