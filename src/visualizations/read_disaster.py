@@ -4,7 +4,9 @@ import plotly.express as px
 import os
 
 curr_path = os.path.split(os.path.realpath(__file__))[0]
-curr_path += '/data/'
+curr_path = os.path.dirname(curr_path)
+curr_path = os.path.dirname(curr_path)
+curr_path += '\\data\\environmental\\'
 
 def read_total_natural_disaster():
     '''
@@ -71,3 +73,5 @@ def fig_natural_disaster():
                   render_mode="svg")
     fig.update_layout(title='Number of Natural Disasters')
     return fig
+
+#read_total_natural_disaster()

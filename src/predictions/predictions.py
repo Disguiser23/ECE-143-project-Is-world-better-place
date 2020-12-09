@@ -2,8 +2,12 @@ import pandas as pd
 import statsmodels.api as sm
 import os, sys
 import warnings
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from src.visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction, average_countries_to_continents
+
+curr_path = os.path.split(os.path.realpath(__file__))[0]
+curr_path = os.path.dirname(curr_path)
+curr_path = os.path.dirname(curr_path)
 
 def autoregressive_integrated_moving_average(data, steps=20, seasonal_order = None):
     '''this method plots predictions for a dataframe with years as columns and countries or continents as rows
@@ -51,11 +55,11 @@ def autoregressive_integrated_moving_average(data, steps=20, seasonal_order = No
 
 if __name__ == "__main__":
     # test the function on our data
-    csv = pd.read_csv('../data/economy/cleaned_data/avg_gdp_continents.csv', index_col=0)
+    csv = pd.read_csv(curr_path + '/data/economy/cleaned_data/avg_gdp_continents.csv', index_col=0)
     data, pred_df = autoregressive_integrated_moving_average(csv.T, steps = 20, seasonal_order=(1, 1, 0, 12))
     plot_prediction_line_graph(data, pred_df, 'Year', 'GDP (Billion US$)', 'GDP Predictions per Continent', 'predictions.png')
     
-    csv = pd.read_csv('../data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)
+    csv = pd.read_csv(curr_path + '/data/environmental/cleaned_data/cleaned_number-of-natural-disaster-events.csv', index_col=0)
     csv = csv.reset_index()
     csv = csv.drop(columns=['decade'])
     csv = csv.drop(columns=['All natural disasters'])
@@ -67,4 +71,4 @@ if __name__ == "__main__":
     years_labels = ['1900-1910', '1910-1920', '1920-1930', '1930-1940', '1940-1950', '1950-1960', '1960-1970', '1970-1980', '1980-1990', '1990-2000', '2000-2010', '2010-2020', '2020-2030', '2030-2040', '2040-2050']
     all_data['labels'] = years_labels
     all_data = all_data.set_index('labels')
-    stacked_bar_graph_prediction(all_data, filename="../presentation_images/stacked_bar_graph_disasters.png", title="Natural Disasters from 1900-2020", ylabel="Number of Incidents")
+    stacked_bar_graph_prediction(all_data, filename="stacked_bar_graph_disasters.png", title="Natural Disasters from 1900-2020", ylabel="Number of Incidents")

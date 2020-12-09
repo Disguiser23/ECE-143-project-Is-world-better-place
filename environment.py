@@ -1,10 +1,9 @@
 import pandas as pd
 import plotly.express as px
-import Environment  #.read_co2
-#import Environment.envi_merge
 from src.predictions.predictions import autoregressive_integrated_moving_average
 from src.visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction, average_countries_to_continents
-
+from src.visualizations.read_co2 import get_predict_co2_continent, fig_map_co2_country, fig_co2_trans, fig_sunburst_co2_country
+from src.visualizations.envi_merge import get_predict_co2_continent_person, fig_world_co2_disaster
 
 def plot_natural_disaster_prediction(file_name=None):
     csv = pd.read_csv(
@@ -38,7 +37,7 @@ def plot_predict_co2_continent(year_start=1900, year_end=2018, file_name=None):
     '''
     This function call plot_prediction_line_graph to draw the line graph
     '''
-    df, df_pre = Environment.read_co2.get_predict_co2_continent(
+    df, df_pre = get_predict_co2_continent(
         year_start, year_end)
     plot_prediction_line_graph(
         df, df_pre, 'Year', 'CO${_2}$',
@@ -47,9 +46,9 @@ def plot_predict_co2_continent(year_start=1900, year_end=2018, file_name=None):
 
 def plot_co2_world_map(year_start=1990, year_end=2018):
     '''
-
+    This function plots the CO2 emission world map
     '''
-    fig = Environment.read_co2.fig_map_co2_country(year_start, year_end)
+    fig = fig_map_co2_country(year_start, year_end)
     fig.show()
 
 
@@ -57,9 +56,9 @@ def plot_predict_co2_continent_person(year_start=1950,
                                       year_end=2018,
                                       file_name=None):
     '''
-    This function call plot_prediction_line_graph to draw the line graph
+    This function calls plot_prediction_line_graph to draw the line graph
     '''
-    df, df_pre = Environment.envi_merge.get_predict_co2_continent_person(
+    df, df_pre = get_predict_co2_continent_person(
         year_start, year_end)
     plot_prediction_line_graph(
         df, df_pre, 'Year', 'Annual CO${_2}$ Emission, Kg',
@@ -69,20 +68,33 @@ def plot_predict_co2_continent_person(year_start=1950,
 
 def plot_world_co2_disaster(year_start=1900, year_end=2018):
     '''
-
+    This function calls fig_world_co2_disaster and plots the graph
     '''
-    fig = Environment.envi_merge.fig_world_co2_disaster(year_start, year_end)
+    fig = fig_world_co2_disaster(year_start, year_end)
     fig.show()
 
+def plot_co2_trans():
+    '''
+    This function plots the CO2 emission caused by international transportation
+    '''
+    fig = fig_co2_trans()
+    fig.show()
+
+def plot_sunburst_co2_country(curr_year = 2018):
+    '''
+    This function plots the sunburst graph of the co2 emission
+    '''
+    fig = fig_sunburst_co2_country(curr_year)
+    fig.show()
 
 if __name__ == "__main__":
-    plot_natural_disaster_prediction(file_name='presentation_images/filename="stacked_bar_graph_disasters.png')
+    plot_natural_disaster_prediction(file_name='stacked_bar_graph_disasters.png')
 
     plot_predict_co2_continent(year_start=1950,
                                year_end=2018,
-                               file_name='presentation_images/co2-continent-prediction.png')
+                               file_name='co2-continent-prediction.png')
 
     plot_predict_co2_continent_person(year_start=1950,
                                       year_end=2018,
-                                      file_name='presentation_images/co2-personal-prediction.png')
+                                      file_name='co2-personal-prediction.png')
 

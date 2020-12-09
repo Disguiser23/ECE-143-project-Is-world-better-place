@@ -61,7 +61,7 @@ def stacked_bar_graph_prediction(data, filename=None, title='title', ylabel="Amo
     :param ylabel: str'''
     assert(isinstance(data, pd.DataFrame))
     assert(isinstance(title, str))
-    assert (isinstance(filename, str) or isinstance(filename, None))
+    assert isinstance(filename, str) or filename == None
     assert (isinstance(ylabel, str))
     params = {'legend.fontsize': 'x-large',
                   'figure.figsize': (15, 5),

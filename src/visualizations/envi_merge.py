@@ -11,10 +11,12 @@ from read_co2 import read_co2_continent
 from read_disaster import read_natural_disaster
 from predictions.predictions import autoregressive_integrated_moving_average
 from visualizations.graphs import plot_prediction_line_graph, stacked_bar_graph_prediction
-from utils import colors_pastel
+from graphs import colors_pastel
 
 curr_path = os.path.split(os.path.realpath(__file__))[0]
-curr_path += '/data/'
+curr_path = os.path.dirname(curr_path)
+curr_path = os.path.dirname(curr_path)
+curr_path += '\\data\\environmental\\'
 
 
 def get_predict_co2_continent_person(year_start=1950, year_end=2018):
@@ -68,7 +70,7 @@ def plot_predict_co2_continent_person(year_start=1950,
 
 def get_world_co2_disaster(year_start=1900, year_end=2018):
     '''
-
+    This function calculate the number of natural disasters related to CO2 emission each year
     '''
     df_emi = read_co2_continent(year_start, year_end)
     df_emi = df_emi.drop(df_emi[
@@ -91,7 +93,7 @@ def get_world_co2_disaster(year_start=1900, year_end=2018):
 
 def fig_world_co2_disaster(year_start=1900, year_end=2018):
     '''
-
+    This function plot the number of natural disasters related to CO2 emission vs CO2 emission
     '''
     df = get_world_co2_disaster(year_start, year_end)
     df.reset_index(inplace = True)
