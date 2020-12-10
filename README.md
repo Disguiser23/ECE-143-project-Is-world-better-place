@@ -4,6 +4,7 @@ This project was motivated by the fact that during the 2020 global pandemic, we 
 Pandas (Version 1.1.4)
 
 Matplotlib (Version 3.1.1),
+
 mpl_toolkits.basemap (requires conda install basemap)
 
 statsmodels.api (Version 0.10.1)
@@ -58,11 +59,14 @@ statsmodels.api (Version 0.10.1)
 ```
 ## How to run the code
 Within each data, there's a "cleaned" subdirectory that stores the data that will be used.
+
 However, we can re-do the cleaning process by running different python files for each category.
 
 Directly run main.ipynb. It will call the python files for three categories respectively. 
 
 To generate the world map graph, run world_overall.py.
+
+All outputs are stored into ./output_images directory.
 
 ## Final Presentation
 Can be found in ./ECE_143_Is_world_better_place.pdf
