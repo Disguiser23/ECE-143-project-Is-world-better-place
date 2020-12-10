@@ -96,7 +96,7 @@ def fig_co2_trans():
                   render_mode="svg")
     fig.update_layout(
         title=
-        'The amount of CO<sub>2</sub> Emission of Internatioanl Transportation',
+        'The amount of CO<sub>2</sub> Emission of International Transportation',
         xaxis_title='Year',
         yaxis_title='Annual CO<sub>2</sub> Emission, Million Tonnes per Year')
     return fig
