@@ -64,7 +64,7 @@ However, we can re-do the cleaning process by running different python files for
 
 Directly run main.ipynb. It will call the python files for three categories respectively. 
 
-To generate the world map graph, run world_overall.py.
+To generate the world map graph, run ./src/visualizations/world_map.py.
 
 All outputs are stored into ./output_images directory.
 
