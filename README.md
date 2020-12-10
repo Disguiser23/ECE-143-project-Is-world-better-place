@@ -28,39 +28,44 @@ statsmodels.api (Version 0.10.1)
 ## File Structure
 ```bash
 .
-├── README.md
+├── README.md 
 ├── data
-│   ├── countries_continent
-│   ├── economy      
-│   ├── environmental   
-│   └── health      
+│   ├── countries_continent                  # Provide an one-on-one mapping from country to its continent
+│   ├── economy                              # Time sequence data we use for measuring economy
+│   ├── environmental                        # Time sequence data we use for measuring enviromental
+│   └── health                               # Time sequence data we use for measuring health
 ├── src                    
-│   ├── data_loading  
-│       ├── clean_health_data.py          
-│       ├── clean_economy_data.py       
-│       └── clean_disaster_data.py
-│   ├── predictions
-│       ├── predictions.py       
-│       └── world_overall.py 
-│   └── visualizations     
+│   ├── data_loading                         # Code uses to load and clean the data in different categories
+│   │   ├── clean_health_data.py          
+│   │   ├── clean_economy_data.py       
+│   │   └── clean_disaster_data.py
+│   ├── predictions                          # Code uses to do predictions
+│   │   ├── predictions.py       
+│   │   └── world_overall.py 
+│   └── visualizations                       # Code uses for visualization purposes 
 │       ├── envi_merge.py
 │       ├── graphs.py       
 │       ├── read_co2.py     
 │       ├── read_disaster.py         
 │       └── world_map.py
-├── main.ipynb
-├── health.py
-├── economy.py
-├── environment.py
-├── output_images
+├── main.ipynb                               # The main jupyterNotebook to show the graphs
+├── health.py                                # Code to predict and visualize health data
+├── economy.py                               # Code to predict and visualize economy data
+├── environment.py                           # Code to predict and visualize environment data
+├── output_images                            # Where all the graphs are stored
 ├── .gitignore
-└── ECE_143_Is_world_better_place.pdf
+└── ECE_143_Is_world_better_place.pdf        # Our presentation slides
 ```
 ## How to run the code
-Directly run main.ipynb
+Within each data, there's a "cleaned" subdirectory that stores the data that will be used.
+However, we can re-do the cleaning process by running different python files for each category.
+
+Directly run main.ipynb. It will call the python files for three categories respectively. 
+
+To generate the world map graph, run world_overall.py.
 
 ## Final Presentation
-Can be found in ./final_presentation/ECE_143_Is_world_better_place.pdf
+Can be found in ./ECE_143_Is_world_better_place.pdf
 
 
 
