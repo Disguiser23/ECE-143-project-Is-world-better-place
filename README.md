@@ -62,11 +62,14 @@ Within each data, there's a "cleaned" subdirectory that stores the data that wil
 
 However, we can re-do the cleaning process by running different python files for each category.
 
-Directly run main.ipynb. It will call the python files for three categories respectively. 
-
-To generate the world map graph, run ./src/visualizations/world_map.py.
+Directly run main.ipynb. It will call the python files for three categories and the world map respectively. 
 
 All outputs are stored into ./output_images directory.
+
+Depending on the operating system used, filestrings might need to be changed from '\\' to '/'.
+
+Some graphs plotted by plotly express cannot be shown correctly because of the limits of github. You can try to click the minus sign on the page to use the nbviewer or run it on a local machine.
+
 
 ## Final Presentation
 Can be found in ./ECE_143_Is_world_better_place.pdf
