@@ -42,7 +42,6 @@ statsmodels.api (Version 0.10.1)
 │   │   └── clean_disaster_data.py
 │   ├── predictions                          # Code uses to do predictions
 │   │   ├── predictions.py       
-│   │   └── world_overall.py 
 │   └── visualizations                       # Code uses for visualization purposes 
 │       ├── envi_merge.py
 │       ├── graphs.py       
@@ -52,6 +51,7 @@ statsmodels.api (Version 0.10.1)
 ├── main.ipynb                               # The main jupyterNotebook to show the graphs
 ├── health.py                                # Code to predict and visualize health data
 ├── economy.py                               # Code to predict and visualize economy data
+├── world_overall.py                         # Code to predict and visualize overall world data for the categories
 ├── environment.py                           # Code to predict and visualize environment data
 ├── output_images                            # Where all the graphs are stored
 ├── .gitignore
