@@ -13,6 +13,10 @@ mpl_toolkits.basemap (requires conda install basemap)
 
 statsmodels.api (Version 0.10.1)
 
+plotly (Version 4.12.0)
+
+plotly_express (Version 0.4.1)
+
 ## Datasets
 * Health
     * Gender equality [[8](http://data.un.org/DocumentData.aspx?id=415)], 
