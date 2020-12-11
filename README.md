@@ -3,7 +3,11 @@ This project was motivated by the fact that during the 2020 global pandemic, we 
 ## Used Libraries
 Pandas (Version 1.1.4)
 
-Matplotlib (Version 3.1.1),
+Numpy (Version 1.17.2)
+
+Plotly Express
+
+Matplotlib (Version 3.1.1)
 
 mpl_toolkits.basemap (requires conda install basemap)
 
