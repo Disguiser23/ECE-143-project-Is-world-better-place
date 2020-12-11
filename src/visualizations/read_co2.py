@@ -10,7 +10,7 @@ from visualizations.graphs import plot_prediction_line_graph
 curr_path = os.path.split(os.path.realpath(__file__))[0]
 curr_path = os.path.dirname(curr_path)
 curr_path = os.path.dirname(curr_path)
-curr_path += '\\data\\environmental\\'
+curr_path += '/data/environmental/'
 
 def read_co2_continent(year_start=1900, year_end=2018, usecols=[1, 2, 3]):
     '''

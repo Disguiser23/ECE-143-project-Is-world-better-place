@@ -1,11 +1,11 @@
 import pandas as pd
-from utils import average_countries_to_continents
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from Environment.read_co2 import read_co2_continent
-from visualizations.world_map import create_world_bubble_map
-from predictions.predictions import autoregressive_integrated_moving_average
+from src.visualizations.graphs import average_countries_to_continents
+from src.visualizations.read_co2 import read_co2_continent
+from src.visualizations.world_map import create_world_bubble_map
+from src.predictions.predictions import autoregressive_integrated_moving_average
 
 def adaptDataForPCT(raw_data):
     '''this function performs the calculation of percentage change from the previous year
@@ -152,7 +152,7 @@ def run():
         avg_env_df = pd.concat([data.T,predictions[8:].T], axis=1) # remove the overlap
         categories_dfs[i] = avg_env_df
 
-    create_world_bubble_map(categories_dfs[0],categories_dfs[1], categories_dfs[2], 'presentation_images/')
+    create_world_bubble_map(categories_dfs[0],categories_dfs[1], categories_dfs[2], 'output_images/')
 
 
 if __name__ == "__main__":

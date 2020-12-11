@@ -23,8 +23,8 @@ def create_world_bubble_map(data_health, data_env, data_econ, file_destination):
     # Make the background map
     m = Basemap(llcrnrlon=-180, llcrnrlat=-65, urcrnrlon=180, urcrnrlat=80)
     m.drawmapboundary(fill_color=(0,0,0,0), linewidth=0)
-    m.fillcontinents(color='#ffffff')
-    m.drawcoastlines(linewidth=0.1, color="#f6f6f6")
+    m.fillcontinents(color='#d3d3d3')
+    m.drawcoastlines(linewidth=0.1, color="#d3d3d3")
 
     #define where to plot the bubbles
     coords = [[-65.59, -30, 'South America'],
